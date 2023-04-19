@@ -37,6 +37,15 @@ $(function(){
         $("#formulariodecontacto").fadeIn();
     })
 
+    $("#reclamoboton").click(function(){
+        $("#inicio").fadeOut();
+        $("#sobrenosotros").fadeOut();
+        $("#formulariodecontacto").fadeOut();
+
+        $("#formulariodereclamo").fadeIn();
+    })
+
+
     $("#andres").click(function(){
         andresshow = !andresshow
         if(andresshow){
@@ -97,4 +106,73 @@ $(function(){
         return true;
       });
 
+
+      //INTENTO DE FORMULARIO
+
+      var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+                $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-primary').addClass('btn-default');
+            $item.addClass('btn-primary');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allNextBtn.click(function(){
+        
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i<curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid)
+            nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('div.setup-panel div a.btn-primary').trigger('click');
+
+    var exportBtn = $('#exportBtn');
+
+    
+    exportBtn.click(function() {
+        
+        var name = $('#nombrerec').val();
+        var lastname = $('#apellidorec').val();
+        var email = $('#emailrec').val();
+        var message = $('#descrec').val();
+        var fecha = $('#fechareclamo').val();
+        
+        
+        var doc = new jsPDF();
+        
+        
+        doc.text('Nombre: ' + name, 20, 20);
+        doc.text('Apellido: ' + lastname, 20, 30);
+        doc.text('Email: ' + email, 20, 40);
+        doc.text('Mensaje: ' + message, 20, 50);
+        doc.text('Fecha reclamo: ' + fecha, 20, 60);
+        
+        
+        doc.save('formulario.pdf');
+    });
 });
