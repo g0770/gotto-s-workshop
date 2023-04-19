@@ -7,6 +7,8 @@ let estebanshow = false;
 $(function(){
 
     $("#sobrenosotros").hide();
+    $("#formulariodecontacto").hide();
+    $("#formulariodereclamo").hide()
     $("#inicio").fadeIn();
 
     $(".info").hide();
@@ -25,6 +27,14 @@ $(function(){
         $("#formulariodereclamo").fadeOut();
 
         $("#sobrenosotros").fadeIn();
+    })
+
+    $("#contactoboton").click(function(){
+        $("#inicio").fadeOut();
+        $("#sobrenosotros").fadeOut();
+        $("#formulariodereclamo").fadeOut();
+
+        $("#formulariodecontacto").fadeIn();
     })
 
     $("#andres").click(function(){
@@ -56,5 +66,35 @@ $(function(){
             $(".esteban").fadeIn();
         }
     });
+
+    $('#formcon').submit(function(e) {
+        e.preventDefault();
+    
+        var nombre = $('#nombre').val();
+        var apellido = $('#apellido').val();
+        var email = $('#email').val();
+        var mensaje = $('#mensaje').val();
+    
+        if (nombre == '' || apellido == '' || email == '' || mensaje == '') {
+          alert('Por favor complete todos los campos.');
+          return false;
+        }
+    
+        alert('Formulario enviado con éxito.');
+        $.ajax({
+            url: "https://reqres.in/api/users",
+            type: "POST",
+            data: {
+                nombre: nombre,
+                apellido: apellido ,
+                email: email ,
+                mensaje: mensaje
+            },
+            success: function(response){
+                console.log(response);
+            }
+        });
+        return true;
+      });
 
 });

@@ -41,8 +41,41 @@ header {
 
 body {
     background-color: rgb(99, 99, 99);
+    background-image: url('images/5073414.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
 }
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+input, textarea {
+    border: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+
